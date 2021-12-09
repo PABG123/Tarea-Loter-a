@@ -1,6 +1,9 @@
  Auto detect text files and perform LF normalization
+ 
+ 
  //Usé Visual Studio par hacer el codigo 
- //PedroAlonsoBallesteros Garza 
+ //Pedro Alonso Ballesteros Garza 
+ ////App en consola
  
 * text=auto
 using System;
