@@ -1,2 +1,229 @@
-# Auto detect text files and perform LF normalization
+ Auto detect text files and perform LF normalization
+ //Usé Visual Studio par hacer el codigo 
+ //PedroAlonsoBallesteros Garza 
+ 
 * text=auto
+using System;
+
+namespace LOTERIA
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            char[,] tablero = new char[4, 4];    
+            Iniciotablero(tablero);  
+            Console.WriteLine("LOTERIA MEXICANA");  
+            Console.WriteLine(TableroVisual(tablero));  
+            Console.WriteLine();
+            
+            do      
+            {
+                Console.Clear();
+                Console.WriteLine("LOTERIA MEXICANA");
+                Console.WriteLine(TableroVisual(tablero));
+                Console.WriteLine();
+                
+
+                Console.WriteLine("introdusca la coordenada de lo que salio");
+                string cordenada;
+
+                do
+                {
+                    cordenada = Console.ReadLine();
+                    if (!EsCordValida(cordenada))
+                    {
+                        Console.WriteLine("La coordenada no es valiada");
+                        Console.WriteLine();
+                    }
+
+                } while (!EsCordValida(cordenada));
+
+               
+                char caracterUsado= 'X';
+               
+                CordstoArray(tablero, cordenada, caracterUsado);
+
+                if (HayGanador(tablero))
+                {
+                    break;
+                }
+               
+
+            } while (!HayGanador(tablero));
+
+            if (HayGanador(tablero))
+            {
+                Console.Clear();
+                Console.WriteLine(TableroVisual(tablero));
+                Console.WriteLine();
+                Console.WriteLine("BUENAAAAS!!!!");
+            }
+
+                static void Iniciotablero(char[,] tablero)  
+           {
+                for (int i = 0; i < 4; i++)
+                    for (int j = 0; j < 4; j++)
+                        tablero[i, j] = ' ';
+                     
+            
+         }
+           
+            static string TableroVisual(char[,] tablero)  
+            {                                            
+                string TableroVisual = "";
+                Console.WriteLine("             1              2                  3              4");
+                Console.WriteLine("   ┌───────────────┬───────────────┬───────────────┬───────────────┐");
+                Console.WriteLine(" A │    El gallo:{0} │  La bota:{1}    │ La escalera:{2} │    La rana:{3}  │", tablero[0, 0], tablero[0, 1], tablero[0, 2], tablero[0, 3]);
+                Console.WriteLine("   ├───────────────┼───────────────┼───────────────┼───────────────┤");
+                Console.WriteLine(" B │   La sandia:{0} │   El sol;{1}    │   El barril:{2} │  Las jaras:{3}  │", tablero[1, 0], tablero[1, 1], tablero[1, 2], tablero[1, 3]);
+                Console.WriteLine("   ├───────────────┼───────────────┼───────────────┼───────────────┤");
+                Console.WriteLine(" C │ La estrella:{0} │ El arbol:{1}    │   El musico:{2} │  La maseta:{3}  │", tablero[2, 0], tablero[2, 1], tablero[2, 2], tablero[2, 3]);
+                Console.WriteLine("   ├───────────────┼───────────────┼───────────────┼───────────────┤");
+                Console.WriteLine(" d │  El soldado:{0} │ El mundo:{1}    │  La chalupa:{2} │ El alacran:{3}  │", tablero[3, 0], tablero[3, 1], tablero[3, 2], tablero[3, 3]);
+                Console.WriteLine("   └───────────────┴───────────────┴───────────────┴───────────────┘");
+
+                return TableroVisual;
+            }
+            
+            static void CordstoArray(char[,] tablero, string cordenada, char letra)
+            {
+
+                switch (cordenada)
+                {
+                    case "a1":
+                        tablero[0, 0] = letra;
+                        return;
+                    case "a2":
+                        tablero[0, 1] = letra;
+                        return;
+                    case "a3":
+                        tablero[0, 2] = letra;
+                        return;
+                    case "a4":
+                        tablero[0, 3] = letra;
+                        return;
+                    case "b1":
+                        tablero[1, 0] = letra;
+                        return;
+                    case "b2":
+                        tablero[1, 1] = letra;
+                        return;
+                    case "b3":
+                        tablero[1, 2] = letra;
+                        return;
+                    case "b4":
+                        tablero[1, 3] = letra;
+                        return;
+                    case "c1":
+                        tablero[2, 0] = letra;
+                        return;
+                    case "c2":
+                        tablero[2, 1] = letra;
+                        return;
+                    case "c3":
+                        tablero[2, 2] = letra;
+                        return;
+                    case "c4":
+                        tablero[2, 3] = letra;
+                        return;
+                    case "d1":
+                        tablero[3, 0] = letra;
+                        return;
+                    case "d2":
+                        tablero[3, 1] = letra;
+                        return;
+                    case "d3":
+                        tablero[3, 2] = letra;
+                        return;
+                    case "d4":
+                        tablero[3, 3] = letra;
+                        return;
+
+                }
+               
+            }
+           
+
+            static char Ganador(char[,] tablero)
+            {
+                if (tablero[0, 0] == tablero[0, 1] && tablero[0, 1] == tablero[0, 2] && tablero[0, 2] == tablero[0, 3] && tablero[0, 0] != ' ')
+                {
+                    return tablero[0, 0];
+                }
+                if (tablero[1, 0] == tablero[1, 1] && tablero[1, 1] == tablero[1, 2] && tablero[1, 2] == tablero[1, 3] && tablero[1, 0] != ' ')
+                {
+                    return tablero[1, 0];
+                }
+                if (tablero[2, 0] == tablero[2, 1] && tablero[2, 1] == tablero[2, 2] && tablero[2, 2] == tablero[2, 3] && tablero[2, 0] != ' ')
+                {
+                    return tablero[2, 0];
+                }
+                if (tablero[3, 0] == tablero[3, 1] && tablero[3, 1] == tablero[3, 2] && tablero[3, 2] == tablero[3, 3] && tablero[3, 0] != ' ')
+                {
+                    return tablero[3, 0];
+                }
+                if (tablero[0, 1] == tablero[1, 1] && tablero[1, 1] == tablero[2, 1] && tablero[2, 1] == tablero[3, 1] && tablero[0, 1] != ' ')
+                {
+                    return tablero[0, 1];
+                }
+                if (tablero[0, 3] == tablero[1, 3] && tablero[1, 3] == tablero[2, 3] && tablero[2, 3] == tablero[3, 3] && tablero[0, 3] != ' ')
+                {
+                    return tablero[0, 3];
+                }
+                if (tablero[0, 2] == tablero[1, 2] && tablero[1, 2] == tablero[2, 2] && tablero[2, 2] == tablero[3, 2] && tablero[0, 2] != ' ')
+                {
+                    return tablero[0, 2];
+                }
+                if (tablero[0, 0] == tablero[1, 0] && tablero[1, 0] == tablero[2, 0] && tablero[2, 0] == tablero[3, 0] && tablero[0, 0] != ' ')
+                {
+                    return tablero[0, 0];
+                }
+                if (tablero[0, 0] == tablero[1, 1] && tablero[1, 1] == tablero[2, 2] && tablero[2, 2] == tablero[3, 3] && tablero[0, 0] != ' ')
+                {
+                    return tablero[0, 0];
+                }
+                if (tablero[0, 3] == tablero[1, 2] && tablero[1, 2] == tablero[2, 1] && tablero[2, 1] == tablero[3, 0] && tablero[0, 3] != ' ')
+                {
+                    return tablero[0, 3];
+                }
+                return ' ';
+            }
+
+            static bool HayGanador(char[,] tablero)
+            {
+
+                return Ganador(tablero) != ' ';
+            }
+            static bool EsCordValida(string cordenada)
+            {
+
+                switch (cordenada)
+                {
+                    case "a1":
+                    case "a2":
+                    case "a3":
+                    case "a4":
+                    case "b1":
+                    case "b2":
+                    case "b3":
+                    case "b4":
+                    case "c1":
+                    case "c2":
+                    case "c3":
+                    case "c4":
+                    case "d1":
+                    case "d2":
+                    case "d3":
+                    case "d4":
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+        }
+
+    }
+}
